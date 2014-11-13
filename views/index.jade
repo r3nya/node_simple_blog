@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}, #{user}
+
+  each post in data
+    li
+      a(href="/#{post._id}") #{post.title}
+      | 
+      small
+        = post.created_at

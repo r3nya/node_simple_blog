@@ -1,0 +1,23 @@
+{
+  "name": "node-blog-study",
+  "version": "0.0.0",
+  "authors": [
+    "Andrey Makarov <andrew.r3nya@gmail.com>"
+  ],
+  "description": "Simple node on node.js",
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1"
+  }
+}
