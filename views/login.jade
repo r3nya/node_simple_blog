@@ -1,0 +1,28 @@
+extends layout
+
+block content
+   .col-md-4.col-md-offset-4
+      .login-panel.panel.panel-default
+         .panel-body
+            if errors.length > 0
+               .alert.alert-warning.alert-dismissible(role="alert")
+                  button.close(type="button", data-dismiss="alert")
+                     span(aria-hidden="true") &times;
+                     span.sr-only Закрыть
+                  strong Внимание!
+                  for err in errors
+                     div #{err}
+            if success_signup
+               .alert.alert-success(role="alert")
+                  div Поздравляем! Вы успешно зарегистрировались.
+                  div Теперь вы можете войти
+            form.form-signin(role="form", method='POST', action='/login')
+               fieldset
+                  .form-group
+                     input.form-control.input-lg(placeholder="E-mail", name="email", type="email", autofocus=true, required)
+                     input.form-control.input-lg(placeholder="Пароль", name="password", type="password", required)
+
+                  button.btn.btn-lg.btn-success.btn-block Войти
+                  a.btn.btn-lg.btn-primary.btn-block(href='/auth/vk') Войти через ВК
+                  hr
+                  a.btn.btn-lg.btn-warning.btn-block(href='/signup') Зарегистрироваться

@@ -1,0 +1,17 @@
+extends layout
+
+block content
+    h1= title
+    form(action='/post-#{data._id}', method='post', class="form-horizontal")
+        .form-group
+            lable#title(class="col-md-4 control-label" for="title") Заголовок
+            .col-md-4
+                input(id="title", class="form-control input-md", placeholder="Утро 2057 года..." name="title", value="#{data.title}")
+
+        .form-group
+            label(class="col-md-4 control-label" for="body") Текст поста
+            .col-md-4
+                textarea.form-control#textarea(name="body", placeholder="Привет, двач") #{data.body}
+        .form-group
+            .col-sm-offset-2.col-sm-4
+                button#save(name="save", type="submit", class="btn btn-primary") Сохранить

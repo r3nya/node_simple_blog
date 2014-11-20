@@ -8,8 +8,21 @@ var mongoose        = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var auth = require('./routes/auth');
 
 var app = express();
+var redisLib = require('redis');
+var redis = redisLib.createClient();
+var session = require('express-session');
+var flash = require('connect-flash');
+var RedisStore = require('connect-redis')(session);
+var lifetime = 5 * 24 * 60 * 60 * 1000;
+var secret = 'SUCH WOW';
+var sessionStore = new RedisStore({
+    client: redis,
+    ttl   : lifetime / 1000,
+    prefix: 'SESSION:'
+});
 
 mongoose.connect('mongodb://localhost/node-blog');
 
@@ -20,19 +33,32 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-//app.use(require('./lib/passport'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser(secret));
 
-app.get('/logout', function (req, res) {
-    req.logout();
-    //req.session.destroy();
-    res.status(401).end('Unauthorized');
-});
+app.use(session({
+    secret: secret,
+    store: sessionStore,
+    saveUninitialized: true,
+    resave: true,
+    cookie: {
+        maxAge: lifetime
+    }
+}));
+
+app.use(flash());
+
+var passport = require('./lib/passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/', auth(passport));
 
 app.use('/', routes);
 app.use('/users', users);
