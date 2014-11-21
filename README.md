@@ -15,6 +15,12 @@ npm install
 bower install
 ```
 
+## Запуск
+
+```shell
+npm start
+```
+
 ## Домашнее задание
 ### На 27.11.2014
 
