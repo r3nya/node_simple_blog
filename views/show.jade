@@ -16,7 +16,7 @@ block content
     h3 Оставить отзыв
     .row
         .col-md-4.col-md-offset-4
-            form(action='/post-#{data._id}', method='post')
+            form(action='/post-#{data._id}/add_comment', method='post')
                 textarea.form-control(name='text', rows='3', placeholder='кг/ам')
                 br
                 button(class="btn btn-default") Написать

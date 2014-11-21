@@ -53,7 +53,7 @@ router.get('/post-:id', function (req, res) {
     })
 });
 
-router.post('/post-:id', function (req, res) {
+router.post('/post-:id/add_comment', function (req, res) {
     new Comment({
         user_id : req.user._id,
         post_id : req.params.id,
