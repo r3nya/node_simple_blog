@@ -4,7 +4,7 @@
 
 В начале установи `bower` глобально:
 ```shell
-bower install -g
+npm install -g bower
 ```
 
 ## Деплой проекта
